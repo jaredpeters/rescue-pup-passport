@@ -1,0 +1,51 @@
+{
+  "name": "rescue-pup-passport",
+  "version": "0.1.0",
+  "private": false,
+  "description": "A warm, detailed tracker for rescue dogs — health, weight, feeding, potty, milestones, daily journal, and a printable adopter-ready passport. Multi-dog, cloud-synced via Supabase.",
+  "keywords": [
+    "dog-rescue",
+    "pet-tracker",
+    "puppy",
+    "adoption",
+    "nextjs",
+    "supabase",
+    "open-source"
+  ],
+  "license": "MIT",
+  "author": "Jared Peters",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jaredpeters/rescue-pup-passport"
+  },
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "test": "vitest run",
+    "test:watch": "vitest"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.101.0",
+    "@tailwindcss/postcss": "^4.2.2",
+    "@types/node": "^25.5.0",
+    "@types/react": "^19.2.14",
+    "date-fns": "^4.1.0",
+    "lucide-react": "^1.7.0",
+    "next": "^16.2.1",
+    "postcss": "^8.5.8",
+    "react": "^19.2.4",
+    "react-dom": "^19.2.4",
+    "recharts": "^3.8.1",
+    "tailwindcss": "^4.2.2",
+    "typescript": "^6.0.2"
+  },
+  "devDependencies": {
+    "@testing-library/jest-dom": "^6.9.1",
+    "@testing-library/react": "^16.3.2",
+    "@vitejs/plugin-react": "^6.0.1",
+    "jsdom": "^29.0.1",
+    "vitest": "^4.1.2"
+  }
+}
