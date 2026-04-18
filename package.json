@@ -2,7 +2,7 @@
   "name": "rescue-pup-passport",
   "version": "0.1.0",
   "private": false,
-  "description": "A warm, detailed tracker for rescue dogs — health, weight, feeding, potty, milestones, daily journal, and a printable adopter-ready passport. Multi-dog, cloud-synced via Supabase.",
+  "description": "A self-hosted tracker for rescue dogs: health, weight, feeding, potty, milestones, daily journal, and a printable adopter passport. Multi-dog, cloud-synced via Supabase.",
   "keywords": [
     "dog-rescue",
     "pet-tracker",
