@@ -12,9 +12,10 @@ import {
   Milestone,
   DailyNote,
   VetChecklist,
+  Story,
 } from "./types";
 import { generateId, getSelectedDogId, setSelectedDogId } from "./storage";
-import { db, loadDogData, seedIfEmpty } from "./db";
+import { db, loadDogData, seedIfEmpty, isStoriesTableMissing } from "./db";
 import { isSupabaseConfigured } from "./supabase";
 
 export interface DogStore {
@@ -22,6 +23,7 @@ export interface DogStore {
   configured: boolean;
   loading: boolean;
   error: string | null;
+  storiesUnavailable: boolean;
 
   // Dogs
   dogs: Dog[];
@@ -64,6 +66,11 @@ export interface DogStore {
   removeDailyNote: (id: string) => void;
   updateDailyNotes: (notes: DailyNote[]) => void;
 
+  addStory: (entry: Omit<Story, "id">) => void;
+  updateStory: (id: string, updates: Partial<Story>) => void;
+  removeStory: (id: string) => void;
+  updateStories: (stories: Story[]) => void;
+
   updateChecklists: (checklists: VetChecklist[]) => void;
 
   replaceAllData: (data: PuppyData) => void;
@@ -80,6 +87,7 @@ function emptyData(profile: Dog): PuppyData {
     milestones: [],
     dailyNotes: [],
     vetChecklists: [],
+    stories: [],
   };
 }
 
@@ -92,6 +100,7 @@ export function useDogStore(): DogStore {
   const [dogData, setDogData] = useState<DogData | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [storiesUnavailable, setStoriesUnavailable] = useState(false);
 
   const dataRef = useRef<DogData | null>(null);
   dataRef.current = dogData;
@@ -120,6 +129,7 @@ export function useDogStore(): DogStore {
         setSelectedDogId(pick.id);
         const data = await loadDogData(pick.id);
         setDogData(data);
+        setStoriesUnavailable(isStoriesTableMissing());
       }
     } catch (err) {
       console.error(err);
@@ -142,6 +152,7 @@ export function useDogStore(): DogStore {
     try {
       const data = await loadDogData(id);
       setDogData(data);
+      setStoriesUnavailable(isStoriesTableMissing());
     } catch (err) {
       console.error(err);
     }
@@ -343,6 +354,25 @@ export function useDogStore(): DogStore {
     setDogData((prev) => prev ? ({ ...prev, dailyNotes: notes }) : prev);
   }, []);
 
+  // ── Stories ───────────────────────────────────────────
+
+  const addStory = useCallback((entry: Omit<Story, "id">) => {
+    addChildRow<Story>("stories", db.stories.add, entry);
+  }, [addChildRow]);
+
+  const updateStory = useCallback((id: string, updates: Partial<Story>) => {
+    setDogData((prev) => prev ? ({ ...prev, stories: prev.stories.map((s) => s.id === id ? { ...s, ...updates } : s) }) : prev);
+    db.stories.update(id, updates);
+  }, []);
+
+  const removeStory = useCallback((id: string) => {
+    removeChildRow<Story>("stories", db.stories.remove, id);
+  }, [removeChildRow]);
+
+  const updateStories = useCallback((stories: Story[]) => {
+    setDogData((prev) => prev ? ({ ...prev, stories }) : prev);
+  }, []);
+
   // ── Checklists (item-level updates) ───────────────────
 
   const updateChecklists = useCallback((checklists: VetChecklist[]) => {
@@ -380,6 +410,7 @@ export function useDogStore(): DogStore {
       milestones: incoming.milestones,
       dailyNotes: incoming.dailyNotes,
       vetChecklists: incoming.vetChecklists,
+      stories: incoming.stories ?? [],
     });
     setDogs((ds) => ds.map((d) => d.id === selectedDogId ? { ...d, ...incoming.profile, id: selectedDogId } : d));
     // Persist profile; per-row bulk-replace of child tables is left as
@@ -399,6 +430,7 @@ export function useDogStore(): DogStore {
     configured,
     loading,
     error,
+    storiesUnavailable,
 
     dogs,
     selectedDogId,
@@ -418,6 +450,7 @@ export function useDogStore(): DogStore {
     addPottyLog, removePottyLog, updatePottyLogs,
     addMilestone, removeMilestone, updateMilestones,
     addDailyNote, removeDailyNote, updateDailyNotes,
+    addStory, updateStory, removeStory, updateStories,
     updateChecklists,
 
     replaceAllData,
@@ -428,6 +461,6 @@ export function useDogStore(): DogStore {
 function emptyDataSlice(): DogData {
   return {
     weights: [], healthLogs: [], feedings: [], pottyLogs: [],
-    milestones: [], dailyNotes: [], vetChecklists: [],
+    milestones: [], dailyNotes: [], vetChecklists: [], stories: [],
   };
 }

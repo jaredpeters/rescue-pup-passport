@@ -80,6 +80,14 @@ export interface DailyNote {
   notes: string;
 }
 
+export interface Story {
+  id: string;
+  title: string;
+  body: string;
+  startDate: string;
+  endDate: string;
+}
+
 export interface VetChecklist {
   id: string;
   weekAge: number;
@@ -101,6 +109,7 @@ export interface DogData {
   milestones: Milestone[];
   dailyNotes: DailyNote[];
   vetChecklists: VetChecklist[];
+  stories: Story[];
 }
 
 export interface PuppyData extends DogData {

@@ -20,6 +20,7 @@ describe("Supabase Schema Validation", () => {
       "daily_notes",
       "vet_checklists",
       "checklist_items",
+      "stories",
     ];
 
     for (const table of requiredTables) {
@@ -38,6 +39,7 @@ describe("Supabase Schema Validation", () => {
       "daily_notes",
       "vet_checklists",
       "checklist_items",
+      "stories",
     ];
 
     for (const table of tables) {
@@ -55,6 +57,7 @@ describe("Supabase Schema Validation", () => {
       "milestones",
       "daily_notes",
       "vet_checklists",
+      "stories",
     ];
 
     for (const table of childTables) {
@@ -69,8 +72,8 @@ describe("Supabase Schema Validation", () => {
 
   it("has cascade deletes on child tables", () => {
     const cascadeCount = (schema.match(/on delete cascade/g) || []).length;
-    // 7 child tables of puppy_profile + checklist_items → vet_checklists = 8
-    expect(cascadeCount).toBeGreaterThanOrEqual(8);
+    // 8 child tables of puppy_profile (incl. stories) + checklist_items → vet_checklists = 9
+    expect(cascadeCount).toBeGreaterThanOrEqual(9);
   });
 
   it("has check constraints for health log categories", () => {

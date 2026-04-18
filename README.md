@@ -42,7 +42,7 @@ Every weigh-in becomes a point on a line graph. Watch the gain (or catch a conce
 
 ### Milestones
 
-Behavioral and developmental progress: first bark, first meal finished, first tail wag, first time eating with you in the room, first calm interaction with another animal. Categorized (development, social, training, health, first). For rehab cases specifically, the milestone log is often the clearest evidence that the dog is improving.
+A place to record whatever behavioral or developmental progress matters for the dog in your care — you decide what counts and how to describe it. Optional categories (development, social, training, health, first) exist for organization. For rehab cases specifically, the milestone log is often the clearest evidence that the dog is improving.
 
 ### Vet checklists
 

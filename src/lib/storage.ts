@@ -169,6 +169,24 @@ function seedWilla(): SeedDog {
       { id: "willa-n5", date: "2026-04-14", mood: "happy", energyLevel: 4, sleepHours: 10, notes: "Couch snuggle. Sighed and fell asleep with her head on my leg. She's going to be ok." },
     ],
     vetChecklists: [],
+    stories: [
+      {
+        id: "willa-s1",
+        title: "Week one: the quiet room",
+        body:
+          "The first seven days, she lived almost entirely under the bed. She'd come out at 3am to drink, pee on the pad, and go back. I left her food and backed out of the room. She lost weight. The vet said to give it time — that dogs from hoarding situations often need two to three weeks just to understand they can exist without being crowded. I stopped trying to make progress happen and just kept the room predictable: same blanket, same quiet voice through the door, same three meals at the same times. By day six she was eating when I was in the house. By day eight she was eating when I was in the hallway. That was the whole story of week one.",
+        startDate: "2026-03-27",
+        endDate: "2026-04-03",
+      },
+      {
+        id: "willa-s2",
+        title: "The day Miso changed everything",
+        body:
+          "She'd watched the cat through the gap under the door for two weeks. On April 9th I left the door open by accident and found her in the hallway ten minutes later, nose to nose with him. Not frozen — *curious*. He play-bowed, she followed, and they spent twenty minutes doing slow figure-eights around the kitchen island. She made a noise I hadn't heard from her — a little huff that I'm now pretty sure means delight. I think Miso is the reason she'll be okay.",
+        startDate: "2026-04-09",
+        endDate: "",
+      },
+    ],
   };
 }
 
@@ -280,6 +298,16 @@ function seedBiscuit(): SeedDog {
         ],
       },
     ],
+    stories: [
+      {
+        id: "biscuit-s1",
+        title: "The box on the trail",
+        body:
+          "A hiker found three puppies in a cardboard box at the 2-mile marker of the Ridge Trail. All three were alive, warm, quiet. Biscuit was the largest. The siblings — both female, smaller — went to another foster. No note, no collar, no microchip. Estimated six weeks. He slept through the entire car ride home and ate an hour after arriving. I don't know what his first six weeks were, but whatever they were, they didn't break him.",
+        startDate: "2026-04-05",
+        endDate: "",
+      },
+    ],
   };
 }
 
@@ -352,5 +380,15 @@ function seedMoose(): SeedDog {
       { id: "moose-n3", date: "2026-04-16", mood: "calm", energyLevel: 3, sleepHours: 13, notes: "Lazy day. Rained. He watched the window intently and grumbled at every squirrel." },
     ],
     vetChecklists: [],
+    stories: [
+      {
+        id: "moose-s1",
+        title: "The unclaimed dog",
+        body:
+          "Found wandering Route 12 on Valentine's Day morning — clean coat, clean teeth, perfect recall when I called, and no chip. We posted him everywhere for three weeks. Petco bulletin, two lost-and-found sites, the local shelter's list, the town Facebook group. Nothing. At some point you have to accept that the previous life, whatever it was, is not coming back. So we started calling him Moose and moved on. He did not seem to mind.",
+        startDate: "2026-02-14",
+        endDate: "2026-03-07",
+      },
+    ],
   };
 }
