@@ -1,126 +1,200 @@
 # 🐾 Rescue Pup Passport
 
-A warm, detailed tracker for rescue dogs — health, weight, feeding, potty, milestones, daily journal, and a printable adopter-ready passport. Multi-dog, cloud-synced.
+> A gentle home for everything you know about the dog in your care.
 
-Built for fosters and rescuers who keep a lot of notes and want to hand a new family **everything** on adoption day.
+You've got a dog in your back bedroom. Maybe you found him on a trail shoulder. Maybe she came from a hoarding intake with 26 others. Maybe the shelter called because you're the one who takes the hard ones.
+
+You're keeping notes. On the back of an envelope, in your Notes app, in three different text threads with the vet. You know what time she first ate. You remember the exact Tuesday he stopped hiding under the bed. You have a theory about the rash.
+
+**This app is a home for all of it.** A calm, organized place to keep the story of one dog — or ten — from intake to adoption day. And when that day comes, it prints everything into a single beautiful report you can hand to their new family.
+
+---
+
+## For who
+
+- **Full-time rescuers and foster coordinators** juggling multiple dogs at once.
+- **Occasional fosters** who want one good tool instead of seven sticky notes.
+- **Rehab specialists** taking on the anxious ones, the medical ones, the slow-warm-up ones.
+- **Anyone who has ever said** *"I'll remember that"* and then, two weeks later, absolutely had not.
+
+You don't need to be technical. You just need a free Supabase account (we'll walk you through it) and 15 minutes.
 
 ---
 
 ## What it does
 
-- **Track many dogs at once.** Switch between them from the header. Each dog has their own health history, weights, feedings, potty log, milestones, and journal.
-- **Health timeline.** Vaccines, deworming, medications, symptoms, vet visits — all in one scrolling history with severity tags.
-- **Weight chart.** Every weigh-in plotted on a simple line graph.
-- **Feeding & potty logs.** Timestamped, with notes. Useful for catching early signs something's off.
-- **Milestones.** First bark, first successful recall, first day eating with people in the room — the small things that matter.
-- **Daily journal.** Mood, energy, sleep hours, free-form notes. The stuff that tells the real story.
-- **Vet checklists.** Age-based puppy vaccine/care schedules you can tick off as you go.
-- **Adopter Report.** One click → a complete printable PDF of the dog's whole history. Hand it to the new family on adoption day.
-- **Import/export.** JSON backups per dog, CSV import for vet records.
-- **Parvo-aware resources.** If you log a parvo diagnosis, the Resources tab surfaces recovery guidance and warning signs.
+### 🐕 Many dogs at once
 
-Everything lives in your own Supabase project. **No third parties, no analytics, no ads, no accounts to manage** — it's your data, in your database, full stop.
+Switch between them from the top of the page. Each has their own everything — health history, weights, feedings, potty logs, milestones, journal.
+
+- Mark them as **in rehab**, **ready for adoption**, **adopted**, **returned**, or **foster only**.
+- Archive the ones who've gone home. Their records stay, so if they come back through, so does their history.
+
+### 🩺 Health timeline
+
+Vaccines, deworming, medications, symptoms, vet visits, injuries — one timeline, color-coded by urgency. Mark things *resolved* when they pass. Your vet will love you.
+
+### ⚖️ Weight chart
+
+Every weigh-in becomes a point on a line. Watch the gain (or catch the concerning dip) at a glance.
+
+### 🍽️ Feeding log
+
+Timestamps, food type, amount, and — crucially — did they eat *all*, *most*, *some*, or *none*. Because that's the pattern that tells you what's happening before anything else does.
+
+### 💩 Potty log
+
+Type, location, consistency, notes. Not glamorous. But if you've ever needed to tell a vet *"it started on Tuesday evening, normal the week before, soft for two days, diarrhea since yesterday morning,"* you know why this page exists.
+
+### 🌟 Milestones
+
+First bark. First meal finished. First time eating with you in the room. First tail wag. First sleeping on the couch. The moments nobody else will remember, captured in the places they deserve.
+
+### 📔 Daily journal
+
+Mood, energy, sleep hours, and free-form notes. The sentence you couldn't fit anywhere else. *"She came out of the bedroom on her own today. She watched me cook. She's going to be okay."*
+
+### ✅ Vet checklists
+
+Age-based puppy care schedules (6 weeks, 8 weeks, 12 weeks, 16 weeks). Tick items off, add due dates, add notes. Works for adult dogs too — just skip the weeks you don't need.
+
+### 💌 Adopter report
+
+One click on adoption day → a complete, printable passport. Dog's full story, every vaccine, every weight, every milestone, the journal highlights, a welcome note for the new family.
+
+Save it as PDF. Email it. Or print it and hand it over in a folder. They'll read every page.
+
+### 📦 Backup & import
+
+- **Export** any dog's full record as a JSON file. Their history, yours to keep.
+- **Import vet records** from a CSV. If your vet can email you a spreadsheet, you can get it in here.
 
 ---
 
-## Quick start
+## What makes this different
 
-**First time setting up a database? Read [SETUP.md](./SETUP.md) instead — it walks you through every click.**
+**Your data, your database, no third parties.** The app talks directly to a Supabase project *you own*. No company in the middle. No analytics. No ads. No "upgrade to unlock." No login required (optional if you want it).
 
-If you're comfortable with Supabase already:
+**Built for the messy reality of rescue work.** Most pet-tracking apps assume you have one dog, you've had them since 8 weeks old, you know their breed, and everything is fine. This one assumes you might have six dogs, three of them anonymous, two on meds, one who hasn't eaten in 40 hours, and a vet appointment in an hour.
+
+**Nothing gets lost.** Everything syncs to your Supabase. Close the tab, change browsers, pick it up on your phone at the vet — it's all there.
+
+**Forgiving.** Fields are optional. Typos are fixable. Wrong date? Just edit it. We assume you're tired.
+
+---
+
+## See it in action
+
+On first load (after setup), you'll see three fictional example dogs so you can explore every feature with realistic data:
+
+- 🐺 **Willa** — a 4-year-old anxious shepherd mix from a hoarding intake. Wouldn't eat for two days. Week three: playing with the resident cat. Shows how the app handles *slow-burn rehab*.
+- 🐶 **Biscuit** — a 7-week-old shepherd puppy found in a cardboard box. Full vaccine schedule ahead, growing fast. Shows *puppy milestone tracking* and *vet checklists*.
+- 🐕 **Moose** — a ~5-year-old coonhound of mystery origin, ready for adoption, full of personality. Shows the *adult dog* flow and the *adopter report*.
+
+Delete them whenever you're ready for your own.
+
+---
+
+## Getting started
+
+### 👉 First time? Start here
+
+**[📖 Read the SETUP guide](./SETUP.md)** — a click-by-click walkthrough assuming zero database experience. About 15 minutes from zero to running.
+
+### Already comfortable with Supabase?
 
 ```bash
 git clone https://github.com/jaredpeters/rescue-pup-passport.git
 cd rescue-pup-passport
 npm install
-cp .env.local.example .env.local
-# fill in NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_ANON_KEY
-# then run supabase/schema.sql in your Supabase SQL Editor
+cp .env.local.example .env.local   # then paste in your Supabase URL + anon key
+# run supabase/schema.sql in your Supabase SQL Editor
 npm run dev
 ```
 
-Visit [http://localhost:3000](http://localhost:3000). You'll see three example dogs (Willa, Biscuit, Moose) — delete them and add your own real rescues.
+Open [http://localhost:3000](http://localhost:3000).
+
+### Deploy online (recommended — use it from your phone)
+
+Both of these are free and take a few minutes:
+
+- **Netlify** — fork → import → add the two env vars → Deploy.
+- **Vercel** — fork → import → add the two env vars → Deploy.
+
+[Step-by-step deploy guide →](./SETUP.md#step-5--deploy-it-online-optional-but-recommended)
 
 ---
 
-## Deploy
+## The moving parts (for the curious)
 
-One-click deploy after forking the repo:
+| Layer | Tech |
+|---|---|
+| Frontend | [Next.js 16](https://nextjs.org/) (static export) + [React 19](https://react.dev/) + TypeScript |
+| Styling | [Tailwind CSS 4](https://tailwindcss.com/) |
+| Database | [Supabase](https://supabase.com/) (Postgres + RLS) |
+| Charts | [Recharts](https://recharts.org/) |
+| Tests | [Vitest](https://vitest.dev/) |
 
-- **Netlify**: import your fork, add the two Supabase env vars, build command `npm run build`, publish directory `out`.
-- **Vercel**: import your fork, add the two env vars, default Next.js settings.
-
-Detailed walkthrough in [SETUP.md](./SETUP.md#step-5--deploy-it-online-optional-but-recommended).
-
----
-
-## Tech stack
-
-- [Next.js 16](https://nextjs.org/) with static export (`output: "export"`) — no server runtime needed
-- [React 19](https://react.dev/) + TypeScript
-- [Tailwind CSS 4](https://tailwindcss.com/)
-- [Supabase](https://supabase.com/) (Postgres + REST + Row-Level Security)
-- [Recharts](https://recharts.org/) for the weight chart
-- [Vitest](https://vitest.dev/) + [Testing Library](https://testing-library.com/) for tests
-
-Static export means the built site is just HTML/CSS/JS files. Host it anywhere — Netlify, Vercel, GitHub Pages, an S3 bucket. Supabase handles all the dynamic parts.
+Static export means the built site is plain HTML/CSS/JS. No server to keep running. Host it anywhere — Netlify, Vercel, GitHub Pages, an S3 bucket, your friend's spare Raspberry Pi.
 
 ---
 
-## Multi-dog data model
+## Privacy & security
 
-- **`puppy_profile`** — one row per dog. (The table is named `puppy_profile` for historical reasons; the app has supported adult dogs the whole time.) Has a `status` field: `in_rehab`, `ready_for_adoption`, `adopted`, `returned`, `foster_only`.
-- **Child tables** (`weight_entries`, `health_logs`, `feeding_entries`, `potty_logs`, `milestones`, `daily_notes`, `vet_checklists`) — each row references a `puppy_id`. Cascade-delete so removing a dog cleans up everything.
-- **Archiving** — soft delete via `archived = true`, so adopted dogs' records stay recoverable.
+- **Your Supabase project URL is what protects your data.** If you share the URL of your deployed app, only people you share it with can reach your database.
+- **Row-Level Security** is enabled on every table, with policies set up by the schema file.
+- **The anon key** is the one the browser uses. It's designed to be public *within RLS constraints* — it can only do what your policies allow.
+- **If you want a stronger guarantee** (like a real login screen so your deployment can live at a public URL), see the [Adding login](#adding-login-optional) section below.
 
-Row-Level Security is enabled on every table. The default policy allows any request with the anon key to read/write — appropriate for single-user deployments where only you know your Supabase URL.
+No analytics. No tracking pixels. No third-party cookies. No "we collect usage data to improve the product" small-print. You host it, you own it, you're done.
 
 ---
 
 ## Adding login (optional)
 
-The default setup treats **your Supabase project URL as your secret**. If you share your deployment URL with others, or run this on a public domain, anyone who finds it could write to your database.
+The default setup is "single user, URL is the secret." Good enough for most personal use. If you want a proper login screen:
 
-To add real login, read [Supabase Auth — Password](https://supabase.com/docs/guides/auth/passwords) and tighten the RLS policies to match `auth.uid()`. A minimal change looks like:
+1. Turn on **Email auth** in your Supabase project → Authentication → Providers.
+2. Tighten the RLS policies to match `auth.uid()` — there's a rough example in the [Supabase docs](https://supabase.com/docs/guides/auth/row-level-security).
+3. Add `@supabase/ssr` or the Supabase Auth UI to this app.
 
-```sql
--- Example: restrict all rows to the authenticated user
-drop policy "anon all puppy_profile" on puppy_profile;
-create policy "owner reads own" on puppy_profile
-  for select using (auth.uid() = owner_id);
--- ... and similar for insert/update/delete + all child tables
--- (requires adding an owner_id column to each table)
-```
-
-This is on the roadmap as an optional opt-in, not the default — the goal is to keep setup simple for the single-user case.
+This is on the roadmap as an opt-in. PRs welcome.
 
 ---
 
-## Development
+## Roadmap (ideas, not promises)
 
-```bash
-npm run dev       # http://localhost:3000
-npm test          # run the vitest suite
-npm run build     # production build (static export to /out)
-npm run lint      # eslint
-```
+- [ ] Optional Auth / multi-user shelter mode
+- [ ] Photo uploads via Supabase Storage
+- [ ] PDF export that doesn't rely on browser print
+- [ ] Quick-log widget (add a weight or feeding in one tap)
+- [ ] Localization (Spanish first)
+- [ ] Import from common vet management systems
 
-The test suite covers the seed data integrity, Supabase config detection, the schema file, and the import/export utilities. It does not hit a real Supabase — tests are fast and deterministic.
+See something you want here? [Open an issue](https://github.com/jaredpeters/rescue-pup-passport/issues/new), or fork and send a PR.
 
 ---
 
 ## Contributing
 
-This project exists so people rescuing animals have a tool that actually fits how they work. Contributions welcome — see [CONTRIBUTING.md](./CONTRIBUTING.md).
+Yes please. Whether it's a typo fix, a better checklist preset, a translation, or a whole new feature — this project exists to get better with every person who uses it.
 
-Good first issues: clearer error messages, more checklist presets, accessibility improvements, translations.
+See **[CONTRIBUTING.md](./CONTRIBUTING.md)** for how to pitch in.
+
+Good first issues: clearer error messages, more vet checklist presets, accessibility tweaks, screenshots for the README, translations.
+
+---
+
+## Thanks
+
+To every person who has opened their home to a dog they didn't have to open it to. This tool is for you.
 
 ---
 
 ## License
 
-[MIT](./LICENSE). Use it, fork it, ship a version with your shelter's branding — all good.
+[MIT](./LICENSE). Use it, fork it, adapt it for your shelter, rebrand it entirely — all welcome.
 
 ---
 
-Made for fosters who keep a lot of notes. 🐾
+<p align="center">🐾 Made for fosters who keep a lot of notes. 🐾</p>
