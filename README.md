@@ -24,6 +24,10 @@ Listed roughly in the order you'll use them during a typical rehabilitation.
 
 Short entries with mood, energy level, sleep hours, and free-form notes. This is the tool most rehabilitators will touch every day — the place for observations that don't fit any structured field. *"She came out of the bedroom on her own today and watched me cook."*
 
+### Stories
+
+Longer-form narrative entries for observations that span days or weeks. Each story has a title, an optional date range, and free-form body text. Use them for turning points and transitional periods — the first week in a new environment, a breakthrough, a difficult stretch — the context that gives individual journal entries their meaning.
+
 ### Feeding log
 
 Timestamped entries recording food type, amount, and how much the dog actually ate — all, most, some, or none. Appetite changes are often the earliest signal of illness or stress, and a structured log is far more useful to a vet than a memory.
