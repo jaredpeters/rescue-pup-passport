@@ -83,6 +83,7 @@ export function importVetCsv(csv: string): { healthLogs: PuppyData["healthLogs"]
 // They're inserted into Supabase only on FIRST connect to an empty database.
 // Users can delete them and add their own real rescues.
 
+/** Three fictional demo dogs (Willa, Biscuit, Moose) inserted into Supabase on first connect. */
 export function getSeedDogs(): SeedDog[] {
   return [seedWilla(), seedBiscuit(), seedMoose()];
 }

@@ -32,6 +32,7 @@ function toCamel(obj: Record<string, unknown>): Record<string, unknown> {
 
 // ── Dog (profile) CRUD ────────────────────────────────────
 
+/** Returns all non-archived dog profiles, oldest-first. */
 export async function listDogs(): Promise<Dog[]> {
   const sb = getSupabase();
   if (!sb) return [];
@@ -63,6 +64,7 @@ export async function getDog(id: string): Promise<Dog | null> {
   return toCamel(data) as unknown as Dog;
 }
 
+/** Inserts a new dog profile; Postgres assigns the UUID. Returns the saved row or null on error. */
 export async function createDog(partial: Partial<Omit<Dog, "id">>): Promise<Dog | null> {
   const sb = getSupabase();
   if (!sb) return null;
@@ -211,6 +213,7 @@ async function updateChecklistItem(itemId: string, updates: { done?: boolean; no
 
 // ── Load full data slice for one dog ──────────────────────
 
+/** Fan-out load of all per-dog child rows (weights, health logs, feedings, etc.) for one dog. */
 export async function loadDogData(dogId: string): Promise<DogData> {
   const [weights, healthLogs, feedings, pottyLogs, milestones, dailyNotes, vetChecklists] = await Promise.all([
     loadRows<WeightEntry>("weight_entries", dogId),
@@ -227,6 +230,7 @@ export async function loadDogData(dogId: string): Promise<DogData> {
 
 // ── Seed the 3 demo dogs on first connect ─────────────────
 
+/** Inserts the three demo dogs if `puppy_profile` is empty. No-op otherwise. */
 export async function seedIfEmpty(): Promise<void> {
   const sb = getSupabase();
   if (!sb) return;

@@ -1,23 +1,8 @@
-# 🐾 Rescue Pup Passport
+# Rescue Pup Passport
 
-> A gentle home for everything you know about the dog in your care.
+A self-hosted web app for tracking rescue dogs from intake to adoption: health, weight, feeding, potty, milestones, daily notes, vet checklists, and a printable adopter report. Multi-dog, cloud-synced via Supabase, static deploy anywhere.
 
-You've got a dog in your back bedroom. Maybe you found him on a trail shoulder. Maybe she came from a hoarding intake with 26 others. Maybe the shelter called because you're the one who takes the hard ones.
-
-You're keeping notes. On the back of an envelope, in your Notes app, in three different text threads with the vet. You know what time she first ate. You remember the exact Tuesday he stopped hiding under the bed. You have a theory about the rash.
-
-**This app is a home for all of it.** A calm, organized place to keep the story of one dog — or ten — from intake to adoption day. And when that day comes, it prints everything into a single beautiful report you can hand to their new family.
-
----
-
-## For who
-
-- **Full-time rescuers and foster coordinators** juggling multiple dogs at once.
-- **Occasional fosters** who want one good tool instead of seven sticky notes.
-- **Rehab specialists** taking on the anxious ones, the medical ones, the slow-warm-up ones.
-- **Anyone who has ever said** *"I'll remember that"* and then, two weeks later, absolutely had not.
-
-You don't need to be technical. You just need a free Supabase account (we'll walk you through it) and 15 minutes.
+Built for foster coordinators, rehab specialists, and occasional fosters who want one tool instead of seven sticky notes. Setup is about 15 minutes and requires a free Supabase account — no programming experience needed.
 
 ---
 
@@ -97,9 +82,15 @@ Delete them whenever you're ready for your own.
 
 ## Getting started
 
-### 👉 First time? Start here
+### Use this template (recommended)
 
-**[📖 Read the SETUP guide](./SETUP.md)** — a click-by-click walkthrough assuming zero database experience. About 15 minutes from zero to running.
+This repo is a GitHub template. Click **"Use this template" → "Create a new repository"** at the top of the repo page to create your own copy with no upstream fork relationship — change anything you want without impacting the original.
+
+Then follow [SETUP.md](./SETUP.md) to wire up Supabase.
+
+### First-time setup guide
+
+**[SETUP.md](./SETUP.md)** — click-by-click walkthrough assuming zero database experience. ~15 minutes end to end.
 
 ### Already comfortable with Supabase?
 
@@ -197,4 +188,4 @@ To every person who has opened their home to a dog they didn't have to open it t
 
 ---
 
-<p align="center">🐾 Made for fosters who keep a lot of notes. 🐾</p>
+<p align="center">Made for fosters who keep a lot of notes.</p>
