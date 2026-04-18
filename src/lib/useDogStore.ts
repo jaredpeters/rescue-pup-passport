@@ -83,6 +83,7 @@ function emptyData(profile: Dog): PuppyData {
   };
 }
 
+/** Single React hook every page uses: profile list, selected dog, composed data, and all mutators. */
 export function useDogStore(): DogStore {
   const configured = isSupabaseConfigured();
 
