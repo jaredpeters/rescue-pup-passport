@@ -135,6 +135,22 @@ create table if not exists checklist_items (
   created_at timestamptz default now()
 );
 
+-- ── Stories (long-form narratives) ─────────────────────────
+-- Free-form observations, transitions, turning points. Unlike daily_notes
+-- which is one-per-day and structured (mood/energy/sleep), stories have a
+-- title, a body, and an optional date range — they can span a week, a
+-- morning, or be undated reflections.
+create table if not exists stories (
+  id uuid primary key default gen_random_uuid(),
+  puppy_id uuid references puppy_profile(id) on delete cascade,
+  title text not null,
+  body text not null default '',
+  start_date date,
+  end_date date,
+  created_at timestamptz default now(),
+  updated_at timestamptz default now()
+);
+
 -- ── Indexes for performance ────────────────────────────────
 create index if not exists idx_weight_puppy_date on weight_entries(puppy_id, date);
 create index if not exists idx_health_puppy_date on health_logs(puppy_id, date);
@@ -143,6 +159,7 @@ create index if not exists idx_potty_puppy_date on potty_logs(puppy_id, date);
 create index if not exists idx_milestones_puppy on milestones(puppy_id);
 create index if not exists idx_daily_notes_puppy_date on daily_notes(puppy_id, date);
 create index if not exists idx_checklist_items on checklist_items(checklist_id);
+create index if not exists idx_stories_puppy_start on stories(puppy_id, start_date desc);
 create index if not exists idx_profile_status on puppy_profile(status) where archived = false;
 
 -- ── Row-Level Security ─────────────────────────────────────
@@ -159,6 +176,7 @@ alter table milestones enable row level security;
 alter table daily_notes enable row level security;
 alter table vet_checklists enable row level security;
 alter table checklist_items enable row level security;
+alter table stories enable row level security;
 
 create policy "anon all puppy_profile" on puppy_profile for all using (true) with check (true);
 create policy "anon all weight_entries" on weight_entries for all using (true) with check (true);
@@ -169,6 +187,7 @@ create policy "anon all milestones" on milestones for all using (true) with chec
 create policy "anon all daily_notes" on daily_notes for all using (true) with check (true);
 create policy "anon all vet_checklists" on vet_checklists for all using (true) with check (true);
 create policy "anon all checklist_items" on checklist_items for all using (true) with check (true);
+create policy "anon all stories" on stories for all using (true) with check (true);
 
 -- ── updated_at trigger ─────────────────────────────────────
 create or replace function update_updated_at()
@@ -182,4 +201,9 @@ $$ language plpgsql;
 drop trigger if exists profile_updated_at on puppy_profile;
 create trigger profile_updated_at
   before update on puppy_profile
+  for each row execute function update_updated_at();
+
+drop trigger if exists stories_updated_at on stories;
+create trigger stories_updated_at
+  before update on stories
   for each row execute function update_updated_at();

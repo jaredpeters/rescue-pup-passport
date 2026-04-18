@@ -11,6 +11,7 @@ import FeedingLog from "@/components/FeedingLog";
 import PottyLog from "@/components/PottyLog";
 import MilestoneTracker from "@/components/MilestoneTracker";
 import DailyNotes from "@/components/DailyNotes";
+import StoriesTab from "@/components/StoriesTab";
 import VetChecklists from "@/components/VetChecklists";
 import DataTools from "@/components/DataTools";
 import AdopterReport from "@/components/AdopterReport";
@@ -90,6 +91,7 @@ export default function Home() {
     { id: "potty", label: "Potty", icon: "💩" },
     { id: "milestones", label: "Milestones", icon: "⭐" },
     { id: "journal", label: "Journal", icon: "📔" },
+    { id: "stories", label: "Stories", icon: "📖" },
     { id: "vet", label: "Vet Checklists", icon: "✅" },
     { id: "resources", label: "Resources", icon: "🌡️" },
     { id: "tools", label: "Import/Export", icon: "📦" },
@@ -150,6 +152,15 @@ export default function Home() {
           <MilestoneTracker milestones={data.milestones} dob={data.profile.dateOfBirth} onUpdate={store.updateMilestones} />
         )}
         {activeTab === "journal" && <DailyNotes notes={data.dailyNotes} onUpdate={store.updateDailyNotes} />}
+        {activeTab === "stories" && (
+          <StoriesTab
+            stories={data.stories}
+            unavailable={store.storiesUnavailable}
+            onAdd={store.addStory}
+            onUpdate={store.updateStory}
+            onRemove={store.removeStory}
+          />
+        )}
         {activeTab === "vet" && <VetChecklists checklists={data.vetChecklists} onUpdate={store.updateChecklists} />}
         {activeTab === "resources" && <Resources healthLogs={data.healthLogs} />}
         {activeTab === "tools" && (

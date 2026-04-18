@@ -9,6 +9,7 @@ import {
   Milestone,
   DailyNote,
   VetChecklist,
+  Story,
 } from "./types";
 import { getSeedDogs } from "./storage";
 
@@ -115,9 +116,28 @@ export async function deleteDog(id: string): Promise<boolean> {
   return !error;
 }
 
+// ── Graceful degradation for additive migrations ──────────
+// If a deployment is missing a table added in a later migration, we detect
+// the Postgres 42P01 "relation does not exist" error on load, flip this
+// flag, and let the UI show a "run this migration" prompt instead of
+// crashing the whole app.
+
+let storiesTableMissing = false;
+
+/** True if the `stories` table does not exist in the connected Supabase. */
+export function isStoriesTableMissing(): boolean {
+  return storiesTableMissing;
+}
+
+function isMissingRelationError(err: unknown): boolean {
+  if (!err || typeof err !== "object") return false;
+  const code = (err as { code?: string }).code;
+  return code === "42P01";
+}
+
 // ── Per-dog data CRUD ─────────────────────────────────────
 
-type DogTable = "weight_entries" | "health_logs" | "feeding_entries" | "potty_logs" | "milestones" | "daily_notes";
+type DogTable = "weight_entries" | "health_logs" | "feeding_entries" | "potty_logs" | "milestones" | "daily_notes" | "stories";
 
 async function loadRows<T>(table: DogTable, dogId: string): Promise<T[]> {
   const sb = getSupabase();
@@ -170,6 +190,51 @@ async function updateRow(table: string, id: string, updates: Record<string, unkn
   return !error;
 }
 
+// ── Stories CRUD (custom: empty-string dates → null) ──────
+
+function nullifyEmptyDate(v: unknown): string | null {
+  return typeof v === "string" && v.trim() !== "" ? v : null;
+}
+
+async function addStory(dogId: string, story: Story): Promise<string | null> {
+  const sb = getSupabase();
+  if (!sb) return null;
+  const { data, error } = await sb
+    .from("stories")
+    .insert({
+      puppy_id: dogId,
+      title: story.title,
+      body: story.body,
+      start_date: nullifyEmptyDate(story.startDate),
+      end_date: nullifyEmptyDate(story.endDate),
+    })
+    .select("id")
+    .single();
+  if (error) {
+    if (isMissingRelationError(error)) storiesTableMissing = true;
+    console.error("addStory:", error);
+    return null;
+  }
+  return data.id;
+}
+
+async function updateStory(id: string, updates: Partial<Story>): Promise<boolean> {
+  const sb = getSupabase();
+  if (!sb) return false;
+  const dbUpdates: Record<string, unknown> = {};
+  if (updates.title !== undefined) dbUpdates.title = updates.title;
+  if (updates.body !== undefined) dbUpdates.body = updates.body;
+  if (updates.startDate !== undefined) dbUpdates.start_date = nullifyEmptyDate(updates.startDate);
+  if (updates.endDate !== undefined) dbUpdates.end_date = nullifyEmptyDate(updates.endDate);
+  const { error } = await sb.from("stories").update(dbUpdates).eq("id", id);
+  if (error) console.error("updateStory:", error);
+  return !error;
+}
+
+async function removeStory(id: string): Promise<boolean> {
+  return deleteRow("stories", id);
+}
+
 // ── Vet checklists (nested) ───────────────────────────────
 
 async function loadChecklists(dogId: string): Promise<VetChecklist[]> {
@@ -213,9 +278,41 @@ async function updateChecklistItem(itemId: string, updates: { done?: boolean; no
 
 // ── Load full data slice for one dog ──────────────────────
 
+async function loadStories(dogId: string): Promise<Story[]> {
+  const sb = getSupabase();
+  if (!sb) return [];
+
+  const { data, error } = await sb
+    .from("stories")
+    .select("*")
+    .eq("puppy_id", dogId)
+    .order("start_date", { ascending: false, nullsFirst: false });
+
+  if (error) {
+    if (isMissingRelationError(error)) {
+      storiesTableMissing = true;
+      return [];
+    }
+    console.error("loadStories:", error);
+    return [];
+  }
+  if (!data) return [];
+  storiesTableMissing = false;
+  return data.map((row) => {
+    const camel = toCamel(row) as Record<string, unknown>;
+    return {
+      id: camel.id as string,
+      title: (camel.title as string) || "",
+      body: (camel.body as string) || "",
+      startDate: (camel.startDate as string) || "",
+      endDate: (camel.endDate as string) || "",
+    };
+  });
+}
+
 /** Fan-out load of all per-dog child rows (weights, health logs, feedings, etc.) for one dog. */
 export async function loadDogData(dogId: string): Promise<DogData> {
-  const [weights, healthLogs, feedings, pottyLogs, milestones, dailyNotes, vetChecklists] = await Promise.all([
+  const [weights, healthLogs, feedings, pottyLogs, milestones, dailyNotes, vetChecklists, stories] = await Promise.all([
     loadRows<WeightEntry>("weight_entries", dogId),
     loadRows<HealthLog>("health_logs", dogId),
     loadRows<FeedingEntry>("feeding_entries", dogId),
@@ -223,9 +320,10 @@ export async function loadDogData(dogId: string): Promise<DogData> {
     loadRows<Milestone>("milestones", dogId),
     loadRows<DailyNote>("daily_notes", dogId),
     loadChecklists(dogId),
+    loadStories(dogId),
   ]);
 
-  return { weights, healthLogs, feedings, pottyLogs, milestones, dailyNotes, vetChecklists };
+  return { weights, healthLogs, feedings, pottyLogs, milestones, dailyNotes, vetChecklists, stories };
 }
 
 // ── Seed the 3 demo dogs on first connect ─────────────────
@@ -239,7 +337,7 @@ export async function seedIfEmpty(): Promise<void> {
   if (count && count > 0) return;
 
   for (const seed of getSeedDogs()) {
-    const { profile, weights, healthLogs, feedings, pottyLogs, milestones, dailyNotes, vetChecklists } = seed;
+    const { profile, weights, healthLogs, feedings, pottyLogs, milestones, dailyNotes, vetChecklists, stories } = seed;
     const dog = await createDog(profile);
     if (!dog) continue;
 
@@ -249,6 +347,9 @@ export async function seedIfEmpty(): Promise<void> {
     for (const p of pottyLogs) await insertRow("potty_logs", dog.id, p as unknown as Record<string, unknown>);
     for (const m of milestones) await insertRow("milestones", dog.id, m as unknown as Record<string, unknown>);
     for (const n of dailyNotes) await insertRow("daily_notes", dog.id, n as unknown as Record<string, unknown>);
+    if (stories) {
+      for (const s of stories) await addStory(dog.id, s);
+    }
 
     for (const cl of vetChecklists) {
       const { data } = await sb
@@ -309,6 +410,11 @@ export const db = {
   dailyNotes: {
     add: (dogId: string, entry: DailyNote) => insertRow("daily_notes", dogId, entry as unknown as Record<string, unknown>),
     remove: (id: string) => deleteRow("daily_notes", id),
+  },
+  stories: {
+    add: addStory,
+    update: updateStory,
+    remove: removeStory,
   },
   checklists: {
     updateItem: updateChecklistItem,
