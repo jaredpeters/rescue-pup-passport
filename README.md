@@ -6,6 +6,8 @@ Rehabilitating a rescue dog produces a lot of information. A first-week feeding 
 
 This app is a home for that information while the dog is in your care, and a way to hand it over cleanly when they leave.
 
+![Dashboard showing a dog's profile, weight, alerts, and latest check-in](docs/screenshots/dashboard.png)
+
 ---
 
 ## How it works
@@ -83,6 +85,14 @@ On first connect to an empty database, the app inserts three fictional rescues s
 - **Moose** — an adult coonhound ready for adoption (the full adoption passport flow).
 
 Delete them from the UI whenever you're ready to start with your own records.
+
+| Health timeline | Milestones |
+|---|---|
+| ![Health timeline with vaccines, symptoms, and resolutions](docs/screenshots/health.png) | ![Milestone tracker with suggested and achieved milestones](docs/screenshots/milestones.png) |
+
+| Stories | Adopter report |
+|---|---|
+| ![Longer-form stories spanning days or weeks](docs/screenshots/stories.png) | ![Printable adopter passport with the full history](docs/screenshots/report.png) |
 
 ---
 
