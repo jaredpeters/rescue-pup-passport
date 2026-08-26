@@ -17,3 +17,6 @@ next-env.d.ts
 .vscode
 .idea
 Thumbs.db
+
+# Supabase CLI local state
+supabase/.temp
