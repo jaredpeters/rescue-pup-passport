@@ -1,3 +1,4 @@
+# Dependency updates, bundled so each week brings at most a few pull requests.
 version: 2
 updates:
   - package-ecosystem: npm
@@ -7,7 +8,12 @@ updates:
     groups:
       minor-and-patch:
         update-types: [minor, patch]
+      major:
+        update-types: [major]
   - package-ecosystem: github-actions
     directory: /
     schedule:
       interval: weekly
+    groups:
+      actions:
+        patterns: ["*"]
